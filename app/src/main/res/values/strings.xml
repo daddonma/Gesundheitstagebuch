@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Gesundheitstagebuch</string>
     <string name="author">Marco D\'Addona</string>
+
+    <string name="header_card_blutdruck">Blutdruck</string>
+    <string name="letzte_messung">Letzte Messung</string>
+    <string name="button_neue_blutdruck_messung">Jetzt eintragen</string>
+
+
+    <string name="right">Rechts</string>
+    <string name="left">Links</string>
+
+
 </resources>

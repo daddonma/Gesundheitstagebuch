@@ -5,18 +5,18 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@color/white"
-   >
+    >
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_main"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:background="@color/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:layout_marginBottom="@dimen/toolbar_margin_bottom"/>
+   <androidx.appcompat.widget.Toolbar
+       android:id="@+id/toolbar_main"
+       android:layout_width="match_parent"
+       android:layout_height="@dimen/toolbar_height"
+       android:background="@color/colorPrimary"
+       android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+       app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+       android:layout_marginBottom="@dimen/toolbar_margin_bottom"/>
 
-    <include layout="@layout/main_row_blutdruck" />
-
+   <include
+       layout="@layout/card_content_blutdruck" />
 
 </LinearLayout>
