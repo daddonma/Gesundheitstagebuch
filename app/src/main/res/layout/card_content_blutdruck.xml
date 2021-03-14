@@ -49,7 +49,7 @@
             android:paddingLeft="10dp"/>
 
         <Button
-            android:id="@+id/textButton"
+            android:id="@+id/buttonInsertBlutdruckmessung"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_neue_blutdruck_messung"

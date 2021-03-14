@@ -62,7 +62,7 @@ public class BlutdruckMessungDataSource {
 
     private BlutdruckMessung createBlutdruckMessungObjByCursor(Cursor cursor) {
 
-
+        String x = "1";
         long id = cursor.getLong(cursor.getColumnIndex(BlutdruckMessungDbHelper.COLUMN_ID));
         String messungAm = cursor.getString(cursor.getColumnIndex(BlutdruckMessungDbHelper.COLUMN_MESSUNG_AM));
         short position = cursor.getShort(cursor.getColumnIndex(BlutdruckMessungDbHelper.COLUMN_POSITION));
@@ -107,20 +107,24 @@ public class BlutdruckMessungDataSource {
 
     public BlutdruckMessung getNewestBlutdruckMessung(int position) {
 
-       String[] filter = new String[0];
+        String filter = "";
 
         if(position != 0) {
-            filter[0] = "asd";
+            filter = BlutdruckMessungDbHelper.COLUMN_POSITION + " = " + position;
         }
 
+        Cursor cursor = database.query(BlutdruckMessungDbHelper.TABLE_NAME, columns, filter, null, null, null, BlutdruckMessungDbHelper.COLUMN_MESSUNG_AM + " DESC", "1");
 
-        Cursor cursor = database.query(BlutdruckMessungDbHelper.TABLE_NAME, columns, null, filter, null, null, BlutdruckMessungDbHelper.COLUMN_MESSUNG_AM + " DESC", "1");
+        if(((cursor != null) && (cursor.getCount() > 0))) {
+            cursor.moveToFirst();
 
-        cursor.moveToFirst();
+            BlutdruckMessung obj = createBlutdruckMessungObjByCursor(cursor);
 
-        BlutdruckMessung obj = createBlutdruckMessungObjByCursor(cursor);
+            return obj;
+        } else {
+            return null;
+        }
 
-        return obj;
     }
 
 
