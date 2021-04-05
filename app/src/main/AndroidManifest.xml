@@ -19,7 +19,15 @@
         </activity>
 
         <activity
-            android:name="de.macoda.gesundheitstagebuch.blutdruck.BludruckMessungInsertActivity"
+            android:name="de.macoda.gesundheitstagebuch.blutdruck.BlutdruckMessungInsertActivity"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity
+            android:name="de.macoda.gesundheitstagebuch.blutdruck.BlutdruckMessungUebersichtActivity"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -1,6 +1,11 @@
 package de.macoda.gesundheitstagebuch.blutdruck;
 
+import android.util.Log;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 public class BlutdruckMessung {
 
@@ -64,6 +69,25 @@ public class BlutdruckMessung {
 
     public String getMessungAm() {
         return messungAm;
+    }
+
+    public String getLocalMessungAm() {
+        String originalStringFormat = "yyyy-MM-dd HH:mm:ss";
+        String desiredStringFormat = "dd.MM.yyyy HH:mm 'Uhr'";
+
+        SimpleDateFormat readingFormat = new SimpleDateFormat(originalStringFormat);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(desiredStringFormat);
+
+        try {
+            Date date = readingFormat.parse(this.messungAm);
+            return outputFormat.format(date);
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+            Log.e(CLASS_NAME, "Error: " + e.getMessage());
+
+            return this.messungAm;
+        }
     }
 
     public void setMessungAm(String messungAm) {

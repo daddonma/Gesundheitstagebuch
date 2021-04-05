@@ -45,7 +45,7 @@ public class BlutdruckMessungDataSource {
         Log.d(CLASS_NAME, "Datenbank mit Hilfe des DbHelpers geschlossen.");
     }
 
-    public BlutdruckMessung insertBlutdruckMessung(ContentValues values) {
+    public Long insertBlutdruckMessung(ContentValues values) {
 
         String tableName = BlutdruckMessungDbHelper.TABLE_NAME;
 
@@ -57,12 +57,11 @@ public class BlutdruckMessungDataSource {
 
         BlutdruckMessung blutdruckMessungObj = createBlutdruckMessungObjByCursor(cursor);
 
-        return blutdruckMessungObj;
+        return insertedID;
     }
 
     private BlutdruckMessung createBlutdruckMessungObjByCursor(Cursor cursor) {
 
-        String x = "1";
         long id = cursor.getLong(cursor.getColumnIndex(BlutdruckMessungDbHelper.COLUMN_ID));
         String messungAm = cursor.getString(cursor.getColumnIndex(BlutdruckMessungDbHelper.COLUMN_MESSUNG_AM));
         short position = cursor.getShort(cursor.getColumnIndex(BlutdruckMessungDbHelper.COLUMN_POSITION));

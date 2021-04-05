@@ -2,13 +2,14 @@ package de.macoda.gesundheitstagebuch;
 
 import de.macoda.gesundheitstagebuch.blutdruck.*;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -32,22 +33,33 @@ public class MainActivity extends AppCompatActivity {
         Log.v(CLASS_NAME, "Die Datenquelle wird geöffnet.");
         blutdruckMessungDataSource.open();
 
-//        ContentValues values = new ContentValues();
-//        values.put(BlutdruckMessungDbHelper.COLUMN_MESSUNG_AM, "2021-03-10");
-//        values.put(BlutdruckMessungDbHelper.COLUMN_MMHG_SYSTOLISCH, "130");
-//        values.put(BlutdruckMessungDbHelper.COLUMN_MMHG_DIASTOLISCH, "85");
-//        values.put(BlutdruckMessungDbHelper.COLUMN_PULS, "70");
-//        values.put(BlutdruckMessungDbHelper.COLUMN_POSITION, BlutdruckMessung.POSITION_RIGHT);
-//        values.put(BlutdruckMessungDbHelper.COLUMN_KOMMENTAR,"Hallo Welt");
-
-       // BlutdruckMessung blutdruckMessungObj = blutdruckMessungDataSource.insertBlutdruckMessung(values);
-        //blutdruckMessungDataSource.getAllBlutdruckMessungen();
-
-       BlutdruckMessung newestBlutdruckMessungRight = blutdruckMessungDataSource.getNewestBlutdruckMessung(BlutdruckMessung.POSITION_RIGHT);
-
        initButtonInsertBlutdruckmessung();
 
+       //Neueste Blutdruckmessung laden
+       loadNewestBlutdruckMessung();
 
+
+        LinearLayout cardBlutdruck = (LinearLayout) findViewById(R.id.card_blutdruck);
+
+        View.OnClickListener onClickListenerx = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent explicitIntent = new Intent(MainActivity.this, BlutdruckMessungUebersichtActivity.class);
+
+                startActivity(explicitIntent);
+            }
+        };
+
+        cardBlutdruck.setOnClickListener(onClickListenerx);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        loadNewestBlutdruckMessung();
     }
 
     private void initMenuBar() {
@@ -71,14 +83,43 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent explicitIntent = new Intent(MainActivity.this, BludruckMessungInsertActivity.class);
+                Intent explicitIntent = new Intent(MainActivity.this, BlutdruckMessungInsertActivity.class);
 
                 startActivity(explicitIntent);
             }
         };
 
-
         button.setOnClickListener(onClickListener);
+    }
+
+    private void loadNewestBlutdruckMessung() {
+
+        BlutdruckMessung newestBlutdruckMessungRechts = blutdruckMessungDataSource.getNewestBlutdruckMessung(BlutdruckMessung.POSITION_RIGHT);
+        BlutdruckMessung newestBlutdruckMessungLinks = blutdruckMessungDataSource.getNewestBlutdruckMessung(BlutdruckMessung.POSITION_LEFT);
+
+        TextView neuesteMessungRechts = (TextView) findViewById(R.id.neueste_messung_rechts);
+        TextView neuesteMessungLinks = (TextView) findViewById(R.id.neueste_messung_links);
+
+        String textLeft;
+        String textRight;
+
+
+        if(newestBlutdruckMessungRechts != null) {
+            textRight = "(R) " + newestBlutdruckMessungRechts.getMmhgSystolisch() + " / " + newestBlutdruckMessungRechts.getMmhgDiastolisch() + " \n " + newestBlutdruckMessungRechts.getLocalMessungAm();
+        } else {
+            textRight = "bisher keine Messung auf der rechten Seite";
+        }
+
+        if(newestBlutdruckMessungLinks != null) {
+            textLeft = "(L) " + newestBlutdruckMessungLinks.getMmhgSystolisch() + " / " + newestBlutdruckMessungLinks.getMmhgDiastolisch() + " \n " + newestBlutdruckMessungLinks.getLocalMessungAm();
+        } else {
+            textLeft = "bisher keine Messung auf der linken Seite";
+        }
+
+        neuesteMessungRechts.setText(textRight);
+        neuesteMessungLinks.setText(textLeft);
+
+
 
     }
 }

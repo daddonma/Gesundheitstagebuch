@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/simpleTableLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1"> <!-- stretch the second column of the layout-->
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_blutdruckmessung_uebersicht"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:layout_marginBottom="@dimen/toolbar_margin_bottom"/>
+
+    <!-- first row of the table layout-->
+    <TableRow
+
+        android:id="@+id/firstRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <!-- first element of the row-->
+        <TextView
+
+            android:id="@+id/simpleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#b0b0b0"
+            android:padding="18dip"
+            android:text="Text 1"
+            android:textColor="#000"
+            android:textSize="12dp" />
+
+        <TextView
+
+            android:id="@+id/simpleTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FF0000"
+            android:padding="18dip"
+            android:text="Text 2"
+            android:textColor="#000"
+            android:textSize="14dp" />
+
+    </TableRow>
+</TableLayout>
